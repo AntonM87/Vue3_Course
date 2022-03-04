@@ -43,6 +43,14 @@ export default {
         body: '',
       }
     },
+  },
+  watch: {
+    post: {
+      handler(val) {
+        console.log(val)
+      },
+      deep: true
+    }
   }
 }
 </script>
