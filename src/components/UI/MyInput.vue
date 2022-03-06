@@ -9,6 +9,10 @@
 export default {
   name: "MyInput",
   props: {
+    name:{
+      type:String,
+      required: true,
+    },
     modelValue: [String, Number]
   },
   methods: {
@@ -26,8 +30,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
   .input {
-    width: 60%;
+    width: 100%;
     background: rgba(244, 255, 255, 0.55);
     border: 1px solid teal;
     padding: 1rem 1.2rem;

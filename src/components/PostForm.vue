@@ -1,14 +1,14 @@
 <template>
-  <form action="#" @submit.prevent>
+  <form class="form" action="#" @submit.prevent>
     <h2>Создание поста</h2>
     <MyInput
         v-model="post.title"
         type="text"
-        placeholder="Название"/>
+        :name="Название"/>
     <MyInput
         v-model="post.body"
         type="text"
-        placeholder="Описание"/>
+        :name="Описание"/>
     <MyButton
         @click="createPost"
         class="btn"
@@ -55,6 +55,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
