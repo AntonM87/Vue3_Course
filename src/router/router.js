@@ -1,16 +1,7 @@
-import {createRouter, createWebHistory} from "vue-router";
 import MainPage from "@/pages/MainPage";
+import PostsPage from "@/pages/PostsPage";
 
-const routes = [
-    {
-        path: '/',
-        components: MainPage,
-    }
-];
-
-const router = createRouter({
-    routes,
-    history: createWebHistory(),
-})
-
-export default router;
+export default {
+    '/': MainPage,
+    '/posts': PostsPage
+}

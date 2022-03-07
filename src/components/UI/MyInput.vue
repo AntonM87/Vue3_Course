@@ -11,7 +11,7 @@ export default {
   props: {
     name:{
       type:String,
-      required: true,
+      required: false,
     },
     modelValue: [String, Number]
   },

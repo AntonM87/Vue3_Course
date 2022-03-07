@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div>
      <router-view></router-view>
   </div>
 </template>
@@ -18,11 +18,5 @@ export default {
   box-sizing: border-box;
 }
 
-.app_btns {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <h1>Страница с записями</h1>
     <MyInput
         v-model="searchQuery">
@@ -161,6 +161,12 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.app_btns {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .app {
   padding: 2rem;
 }
