@@ -2,14 +2,22 @@
   <div>
     <h1>Добро пожаловать!</h1>
   </div>
+  <NavBar/>
+  <router-view></router-view>
 </template>
 
 <script>
+import NavBar from "@/components/UI/NavBar";
 export default {
-  name: "MainPage"
+  name: "MainPage",
+  components: {NavBar}
 }
 </script>
 
-<style scoped>
-
+<style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 </style>

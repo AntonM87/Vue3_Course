@@ -1,21 +1,9 @@
-import MainPage from "@/pages/MainPage";
-import {createApp,h} from "vue";
-import router from "@/router/router";
+import { createApp } from 'vue'
+import router from './router/r'
+import App from './App.vue'
 
-const SimpleRouter = {
-    data: () => ({
-        currentRoute: window.location.pathname
-    }),
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
 
-    computed: {
-        CurrentComponent() {
-            return router[this.currentRoute] || MainPage
-        }
-    },
 
-    render() {
-        return h(this.CurrentComponent)
-    }
-}
-
-createApp(SimpleRouter).mount('#app')
