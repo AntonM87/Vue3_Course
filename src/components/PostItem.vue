@@ -4,6 +4,7 @@
       <div>
         <strong>{{ post.title }}:</strong> {{ post.body }}
       </div>
+      <MyButton class="post-btns" role="button" @click="$router.push(`/posts/${post.id}`)" >Подробнее</MyButton>
       <MyButton class="post-btns" role="button" @click="$emit('remove', post)">
         Удалить
       </MyButton>
@@ -12,8 +13,10 @@
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton";
 export default {
   name: "PostItem",
+  components: {MyButton},
   props: {
     post: {
       type: Object,
@@ -23,11 +26,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .post-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.post-btns{
+    border: 1px solid teal;
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+    margin-right: 1rem;
+  &:active{
+    background: teal;
+    color: white;
+  }
 }
 </style>

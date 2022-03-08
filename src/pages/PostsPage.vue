@@ -106,7 +106,7 @@ export default {
     async fetchPosts() {
       try {
         this.isPostLoadingIndicator = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?f', {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?', {
           params: {
             _page: this.page,
             _limit: this.limit,
