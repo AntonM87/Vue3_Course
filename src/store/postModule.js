@@ -48,19 +48,19 @@ export default {
     actions: {
         async fetchPosts({state, commit}) {
             try {
-                commit('isPostLoadingIndicator', true);
+                commit('setLoading', true);
                 const response = await axios.get('https://jsonplaceholder.typicode.com/posts?', {
                     params: {
                         _page: state.page,
                         _limit: state.limit,
                     }
                 });
-                commit('totalPages', Math.ceil(100 / this.limit));
-                commit('posts', response.data);
+                commit('setTotalPages', Math.ceil(100 / this.limit));
+                commit('setPosts', response.data);
             } catch (e) {
                 console.log('fetchPosts',e)
             } finally {
-                commit('isPostLoadingIndicator', false);
+                commit('setLoading', false);
             }
         },
         async loadMorePosts({state, commit}) {
@@ -72,8 +72,8 @@ export default {
                         _limit: state.limit,
                     }
                 });
-                commit('totalPages', Math.ceil(100 / this.limit));
-                commit('posts', [...this.posts, ...response.data]);
+                commit('setTotalPages', Math.ceil(100 / this.limit));
+                commit('setPosts', [...this.posts, ...response.data]);
             } catch (e) {
                 console.log('loadMorePosts',e)
             }
