@@ -1,6 +1,10 @@
 <template>
   <div class="input-wrapper">
-    <input :value="modelValue" @input="updateInput" class="input">
+    <input
+        v-focus
+        :value="modelValue"
+        @input="updateInput"
+        class="input">
     <slot></slot>
   </div>
 </template>

@@ -1,6 +1,10 @@
 <template>
   <div class="app">
-    <h1>Страница с записями</h1>
+    <h1>{{ $store.state.isAuth ? 'Добро пожаловать' : 'Необходимо авторизоватся' }}</h1>
+    <h1>Лайки в сторе $store.state.likes {{ $store.state.likes }}</h1>
+    <h1>Вызов $store.getters.doubleLikes {{ $store.getters.doubleLikes }}</h1>
+    <MyButton @click="$store.commit('incrementLikes')">Добавить</MyButton>
+    <MyButton @click="$store.commit('decrementLikes')">Убавить</MyButton>
     <MyInput
         v-model="searchQuery">
       <!--      <SelectList-->
@@ -51,34 +55,27 @@ import PostForm from "@/components/PostForm";
 import PostList from "@/components/PostList";
 import DialogWindow from "@/components/UI/DialogWindow";
 import MyButton from "@/components/UI/MyButton";
-import axios from "axios";
 import LoadingInidcator from "@/components/UI/LoadingIndicator";
 import SelectList from "@/components/UI/SelectList";
 import MyInput from "@/components/UI/MyInput";
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 export default {
   name: 'PostPage',
   components: {MyInput, SelectList, LoadingInidcator, MyButton, DialogWindow, PostList, PostForm},
   data() {
     return {
-      posts: [],
-      title: '',
-      body: '',
       dialogVisible: false,
-      isPostLoadingIndicator: false,
-      selectedSort: '',
-      selectedSearch: '',
-      searchQuery: '',
-      page: 1,
-      limit: 10,
-      totalPages: '',
-      sortOptions: [
-        {value: 'title', name: 'По по загловку'},
-        {value: 'body', name: 'По содержимому'},
-      ]
     }
   },
   methods: {
+    ...mapMutations({
+      setPage: 'postModule/setPage',
+    }),
+    ...mapActions({
+      loadMorePosts: 'postModule/loadMorePosts',
+      fetchPosts: 'postModule/fetchPosts',
+    }),
     createPost(post) {
       this.posts.push(post)
       this.dialogVisible = false;
@@ -89,38 +86,6 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
-    async loadMorePosts() {
-      try {
-        this.page += 1;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?f', {
-          params: {
-            _page: this.page,
-            _limit: this.limit,
-          }
-        });
-        this.totalPages = Math.ceil(100 / this.limit);
-        this.posts = [...this.posts, ...response.data];
-      } catch (e) {
-        alert('Ошибка')
-      }
-    },
-    async fetchPosts() {
-      try {
-        this.isPostLoadingIndicator = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?', {
-          params: {
-            _page: this.page,
-            _limit: this.limit,
-          }
-        });
-        this.totalPages = Math.ceil(100 / this.limit);
-        this.posts = response.data;
-      } catch (e) {
-        alert('Ошибка')
-      } finally {
-        this.isPostLoadingIndicator = false;
-      }
-    },
     // changeCurrentPage(pageNumber) {
     //   this.page = pageNumber;
     // }
@@ -129,12 +94,23 @@ export default {
     this.fetchPosts();
   },
   computed: {
-    sortedPosts() {
-      return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
-    },
-    sortedAndSearchedPosts() {
-      return this.sortedPosts.filter((post) => post.title.includes(this.searchQuery) || post.body.includes(this.searchQuery));
-    }
+    ...mapState({
+      posts: state => state.postModule.posts,
+      title: state => state.postModule.title,
+      body: state => state.postModule.body,
+      isPostLoadingIndicator: state => state.postModule.isPostLoadingIndicator,
+      selectedSort: state => state.postModule.selectedSort,
+      selectedSearch: state => state.postModule.selectedSearch,
+      searchQuery: state => state.postModule.searchQuery,
+      page: state => state.postModule.page,
+      limit: state => state.postModule.limit,
+      totalPages: state => state.postModule.totalPages,
+      sortOptions: state => state.postModule.sortOptions,
+    }),
+    ...mapGetters({
+      sortedPosts: 'postModule/sortedPosts',
+      sortedAndSearchedPosts: 'postModule/sortedAndSearchedPosts',
+    }),
   },
   watch: {
     // page(){
@@ -155,6 +131,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
 }
+
 .app {
   padding: 2rem;
 }
