@@ -2,12 +2,13 @@
   <div class="nav-bar">
     <div @click="$router.push('/')"> VUE3</div>
     <div class="buttons-wrapper">
-      <my-button @click="$router.push('/posts')">Записи</my-button>
-      <my-button @click="$router.push('/about')">О сайте</my-button>
-      <my-button @click="$router.push('/store')">Store</my-button>
+      <my-button style="margin-left: 10px" @click="$router.push('/posts')">Записи</my-button>
+      <my-button style="margin-left: 10px" @click="$router.push('/about')">О сайте</my-button>
+      <my-button style="margin-left: 10px" @click="$router.push('/store')">Store</my-button>
+      <my-button style="margin-left: 10px" @click="$router.push('/composition')">CompositionAPI</my-button>
 
-<!--      <router-link to="/posts">Записи</router-link>-->
-<!--      <router-link  to="/about">О сайте</router-link>-->
+      <!--      <router-link to="/posts">Записи</router-link>-->
+      <!--      <router-link  to="/about">О сайте</router-link>-->
     </div>
   </div>
 </template>
@@ -15,6 +16,7 @@
 <script>
 // import MyButton from "@/components/UI/MyButton";
 import MyButton from "@/components/UI/MyButton";
+
 export default {
   name: "NavBar",
   components: {MyButton},
@@ -31,13 +33,16 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  div{
+
+  div {
     cursor: pointer;
-    margin-left: 3rem ;
+    margin-left: 3rem;
   }
-  .buttons-wrapper{
+
+  .buttons-wrapper {
     margin-right: 3rem;
-    my-button{
+
+    my-button {
       border: 1px solid teal;
       cursor: pointer;
       padding: 0.75rem 0.5rem;

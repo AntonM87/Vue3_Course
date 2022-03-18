@@ -6,7 +6,8 @@
     <MyButton @click="$store.commit('incrementLikes')">Добавить</MyButton>
     <MyButton @click="$store.commit('decrementLikes')">Убавить</MyButton>
     <MyInput
-        v-model="searchQuery">
+        :model-value="searchQuery"
+        @update:model-value="setSearchQuery">
       <!--      <SelectList-->
       <!--          :title="'Как искать?'"-->
       <!--          :options="sortOptions"-->
@@ -17,7 +18,8 @@
       <SelectList
           :title="'Как сортировать?'"
           :options="sortOptions"
-          v-model="selectedSort"/>
+          :model-value="selectedSort"
+          @update:model-value="setSelectedSort"/>
     </div>
     <DialogWindow
         v-model:show="dialogVisible">
@@ -71,6 +73,8 @@ export default {
   methods: {
     ...mapMutations({
       setPage: 'postModule/setPage',
+      setSearchQuery: 'postModule/setSearchQuery',
+      setSelectedSort: 'postModule/setSelectedSort',
     }),
     ...mapActions({
       loadMorePosts: 'postModule/loadMorePosts',
